@@ -12,14 +12,16 @@
 #define FALSE 0
 #define TRUE  1
 
-#define MAX_NUMBER_OF_TIMERS 10
+#define MAX_NUMBER_OF_TIMERS 14
 
 #define server_update_timer_ID   1
-#define server_update_timer_time_OUT   300000
+#define server_update_timer_time_OUT  900000
 #define update_screen_timer_ID   2
-#define update_screen_timer_time_OUT   10000
+#define update_screen_timer_time_OUT   5000
 #define wifi_module_timer_ID   3
 #define wifi_module_timer_time_OUT   10000
+#define I2C_module_timer_ID   4
+#define I2C_module_timer_time_OUT   5000
 
 
 

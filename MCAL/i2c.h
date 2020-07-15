@@ -8,6 +8,7 @@
 #ifndef I2C_H_
 #define I2C_H_
 
+#include"spechial_timer.h"
 
 #define F_SCL 100000UL // SCL frequency
 #define Prescaler 1

@@ -14,19 +14,13 @@
 #include<util/delay.h>
 
 
+#include"MCAL/UART.h"
 #include"MCAL/spechial_timer.h"
 #include"HAL/EF_LCD.h"
-#include"HAL/CS811.h"
-#include"HAL/ESP_8266.h"
-#include"HAL/temp_sensor_lm35.h"
+#include"HAL/MAX30100.h"
 
 
-typedef enum
-{
-	TEMP_uploade,
-	CO2_uploade,
-	TVOC_uploade,
-}current_uploade;
+
 
 
 #endif /* MAIN_H_ */

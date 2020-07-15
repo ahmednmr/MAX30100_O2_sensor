@@ -19,6 +19,8 @@ TWSR=0;
 TWBR=0x47;             //50khz
 TWCR=0x04;
 
+timer_create(I2C_module_timer_ID,I2C_module_timer_time_OUT);
+
 
 }
 
@@ -26,7 +28,14 @@ TWCR=0x04;
 void TWI_Start(void)
 {
 	TWCR = (1<<TWINT)|(1<<TWSTA)|(1<<TWEN); 	//Send START condition
-	while (!(TWCR & (1<<TWINT)) );   		//Wait for TWINT flag set. This indicates that the
+
+
+
+
+	timer_reset(I2C_module_timer_ID);
+	timer_start(I2C_module_timer_ID);
+	while ((!(timer_check(I2C_module_timer_ID)))&&(!(TWCR & (1<<TWINT)) ));   		//Wait for TWINT flag set. This indicates that the
+	timer_stop(I2C_module_timer_ID);
 
 	}
 
@@ -39,8 +48,10 @@ void TWI_SendAddress(unsigned char address)
 	TWDR = address;
 	TWCR = (1<<TWINT)|(1<<TWEN);	   //Load SLA_W into TWDR Register. Clear TWINT bit
                                      	//in TWCR to start transmission of address
-
-	while (!(TWCR & (1<<TWINT)));   		//Wait for TWINT flag set. This indicates that the
+	timer_reset(I2C_module_timer_ID);
+	timer_start(I2C_module_timer_ID);
+	while  ((!(timer_check(I2C_module_timer_ID)))&&(!(TWCR & (1<<TWINT))));   		//Wait for TWINT flag set. This indicates that the
+	timer_stop(I2C_module_timer_ID);
 
 }
 
@@ -49,9 +60,10 @@ void TWI_SendData(unsigned char data)
 	TWDR = data;
 	TWCR = (1<<TWINT) |(1<<TWEN);	   //Load SLA_W into TWDR Register. Clear TWINT bit
 	                                   //in TWCR to start transmission of data
-
-	while (!(TWCR & (1<<TWINT)));   		//Wait for TWINT flag set. This indicates that the
-
+	timer_reset(I2C_module_timer_ID);
+	timer_start(I2C_module_timer_ID);
+	while ((!(timer_check(I2C_module_timer_ID)))&&(!(TWCR & (1<<TWINT))));   		//Wait for TWINT flag set. This indicates that the
+	timer_stop(I2C_module_timer_ID);
 	}
 
 void TWI_ReceiveData_ACK(unsigned char * pu8RxData)
@@ -62,7 +74,10 @@ void TWI_ReceiveData_ACK(unsigned char * pu8RxData)
 
 	TWCR = (1<<TWEA)|(1<<TWINT)|(1<<TWEN);
 
-	while (!(TWCR & (1<<TWINT)));		//Wait for TWINT flag set. This indicates that the
+	timer_reset(I2C_module_timer_ID);
+	timer_start(I2C_module_timer_ID);
+	while  ((!(timer_check(I2C_module_timer_ID)))&&(!(TWCR & (1<<TWINT))));		//Wait for TWINT flag set. This indicates that the
+	timer_stop(I2C_module_timer_ID);
 
 	*pu8RxData = TWDR;
 
@@ -74,8 +89,10 @@ void TWI_ReceiveData_NACK(unsigned char * pu8RxData)
 
 	TWCR = (1<<TWINT)|(1<<TWEN);
 
-
-	while (!(TWCR & (1<<TWINT)));   		//Wait for TWINT flag set. This indicates that the
+	timer_reset(I2C_module_timer_ID);
+	timer_start(I2C_module_timer_ID);
+	while ((!(timer_check(I2C_module_timer_ID)))&&(!(TWCR & (1<<TWINT))));   		//Wait for TWINT flag set. This indicates that the
+	timer_stop(I2C_module_timer_ID);
 	*pu8RxData = TWDR;
 
 

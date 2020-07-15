@@ -33,56 +33,56 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 LSS += \
-Air_Quality_Atmega32.lss \
+MAX30100_heart_rate_spo2.lss \
 
 FLASH_IMAGE += \
-Air_Quality_Atmega32.hex \
+MAX30100_heart_rate_spo2.hex \
 
 EEPROM_IMAGE += \
-Air_Quality_Atmega32.eep \
+MAX30100_heart_rate_spo2.eep \
 
 SIZEDUMMY += \
 sizedummy \
 
 
 # All Target
-all: Air_Quality_Atmega32.elf secondary-outputs
+all: MAX30100_heart_rate_spo2.elf secondary-outputs
 
 # Tool invocations
-Air_Quality_Atmega32.elf: $(OBJS) $(USER_OBJS)
+MAX30100_heart_rate_spo2.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: AVR C Linker'
-	avr-gcc -Wl,-Map,Air_Quality_Atmega32.map -mmcu=atmega32 -o "Air_Quality_Atmega32.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	avr-gcc -Wl,-Map,MAX30100_heart_rate_spo2.map -mmcu=atmega32 -o "MAX30100_heart_rate_spo2.elf" $(OBJS) $(USER_OBJS) $(LIBS) -lm
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-Air_Quality_Atmega32.lss: Air_Quality_Atmega32.elf
+MAX30100_heart_rate_spo2.lss: MAX30100_heart_rate_spo2.elf
 	@echo 'Invoking: AVR Create Extended Listing'
-	-avr-objdump -h -S Air_Quality_Atmega32.elf  >"Air_Quality_Atmega32.lss"
+	-avr-objdump -h -S MAX30100_heart_rate_spo2.elf  >"MAX30100_heart_rate_spo2.lss"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-Air_Quality_Atmega32.hex: Air_Quality_Atmega32.elf
+MAX30100_heart_rate_spo2.hex: MAX30100_heart_rate_spo2.elf
 	@echo 'Create Flash image (ihex format)'
-	-avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex Air_Quality_Atmega32.elf  "Air_Quality_Atmega32.hex"
+	-avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex MAX30100_heart_rate_spo2.elf  "MAX30100_heart_rate_spo2.hex"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-Air_Quality_Atmega32.eep: Air_Quality_Atmega32.elf
+MAX30100_heart_rate_spo2.eep: MAX30100_heart_rate_spo2.elf
 	@echo 'Create eeprom image (ihex format)'
-	-avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex Air_Quality_Atmega32.elf  "Air_Quality_Atmega32.eep"
+	-avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex MAX30100_heart_rate_spo2.elf  "MAX30100_heart_rate_spo2.eep"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-sizedummy: Air_Quality_Atmega32.elf
+sizedummy: MAX30100_heart_rate_spo2.elf
 	@echo 'Invoking: Print Size'
-	-avr-size --format=avr --mcu=atmega32 Air_Quality_Atmega32.elf
+	-avr-size --format=avr --mcu=atmega32 MAX30100_heart_rate_spo2.elf
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(FLASH_IMAGE)$(ELFS)$(OBJS)$(ASM_DEPS)$(EEPROM_IMAGE)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) Air_Quality_Atmega32.elf
+	-$(RM) $(FLASH_IMAGE)$(ELFS)$(OBJS)$(ASM_DEPS)$(EEPROM_IMAGE)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) MAX30100_heart_rate_spo2.elf
 	-@echo ' '
 
 secondary-outputs: $(LSS) $(FLASH_IMAGE) $(EEPROM_IMAGE) $(SIZEDUMMY)

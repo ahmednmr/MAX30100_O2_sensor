@@ -20,7 +20,10 @@ void init_UART(void);
 void UART_SendChar(char data);
 char UART_getChar(void);
 void UART_SEND_string(char *array);
-void UART_SEND_number(int number);
+void UART_SEND_number(unsigned int number);
+void UART_SEND_number_signed(signed int number);
+void UART_SEND_number_binary(int number);
+void UART_SEND_number_binary_16_bits(int number);
 
 
 void Set_Call_Back_fun(void (*PTR)(void));
